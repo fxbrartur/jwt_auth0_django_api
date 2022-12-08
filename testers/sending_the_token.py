@@ -1,0 +1,14 @@
+import http.client
+
+
+conn = http.client.HTTPConnection("127.0.0.1:3010")
+
+headers = {
+    'authorization': "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlRBdUtNbERxOWJFcW9lblNNN1cyeCJ9.eyJpc3MiOiJodHRwczovL2Rldi0zNTJ6YTBsdTB6Zng1ejV3LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJ1QXVabG5MaEtMdW55ZTF4YUdWNnJ4VnozaGVzMVFOWEBjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9hc3Nlc3NtZW50L2FwaSIsImlhdCI6MTY3MDQ0Mzg2NywiZXhwIjoxNjcwNTMwMjY3LCJhenAiOiJ1QXVabG5MaEtMdW55ZTF4YUdWNnJ4VnozaGVzMVFOWCIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyJ9.fWMLuVMt8LSh5iv_v1ipUN_vYI0Cddf98K3NFPUMt1K6I6duoLE3n-lKvzIRUO-Wxs95nrDzHhXeDyYHxqiTtNH7XkCqV5mtiiAOZI7whTNFenqYv-aFIqQ1HWmxN9fArZXWvuRmg4d1k1f3LjTaGLtl91673xhJ3iSzI5Rqy0kT2TUl6Py0CVgFFCa7xndQ-aPKDYlnxQN1njZHJqDc27btKOkOb2Xtiv-LkRghcaEH5HAyO4d-9hGvfl-kqwIPnu90NbVbymvVnZ17yB_28ImNGJkOFVTk63tnSVvVE4GdfejL-b4fMwNNLe-aa4Y6VQl7PRCIuTc0uxcm6Qb0SQ"}
+
+conn.request("GET", "/api/private-scoped", headers=headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
