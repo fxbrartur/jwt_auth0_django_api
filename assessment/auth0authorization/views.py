@@ -45,7 +45,11 @@ def public(request):
 
 @api_view(['GET'])
 def private(request):
-    return JsonResponse({'message': 'Hello from a private endpoint! You need to be authenticated to see this.'})
+    return JsonResponse({'Datavalid': 'OK - O servico Datavalid esta operando normalmente'})
+
+@api_view(['POST'])
+def consulta(request):
+    return JsonResponse({'message': 'SERPRO RESPONSE WOULD BE HERE'})
 
 @api_view(['GET'])
 @requires_scope('read:messages')

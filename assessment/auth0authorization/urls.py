@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('api/public', views.public),
-    path('api/private', views.private),
+    path('api/status', views.private),
+    path('api/validate', views.consulta),
     path('api/private-scoped', views.private_scoped),
 ]
