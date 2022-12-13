@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
 from functools import wraps
 import jwt
 
@@ -55,3 +57,17 @@ def consulta(request):
 @requires_scope('read:messages')
 def private_scoped(request):
     return JsonResponse({'message': 'Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this.'})
+
+@api_view(['POST'])
+def receive_jwt(request):
+    # Get the JWT from the request
+    jwt = request.data.get('jwt')
+
+    # Validate the JWT
+    if not jwt:
+        return Response(status=status.HTTP_400_BAD_REQUEST, data={'error': 'Missing JWT'})
+
+    # TODO: validate the JWT, check if it is valid and not expired, etc.
+
+    # Return a new JWT
+    return Response(data={'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2Rldi0zNTJ6YTBsdTB6Zng1ejV3LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJ1QXVabG5MaEtMdW55ZTF4YUdWNnJ4VnozaGVzMVFOWEBjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9hc3Nlc3NtZW50L2FwaSIsImlhdCI6MTY3MDg5ODU3MCwiZXhwIjoxNjcwOTg0OTcwLCJhenAiOiJ1QXVabG5MaEtMdW55ZTF4YUdWNnJ4VnozaGVzMVFOWCIsInNjb3BlIjoicmVhZDptZXNzYWdlcyIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyIsImNwZl9kaXNwb25pdmVsIjoidHJ1ZSIsIm5hbWUiOiJmYWxzZSIsIm5hbWVfc2ltaWxhcml0eSI6IjAuMzgwOTUyMzgwOTUyMzgwOTMiLCJzaXR1YWNhb19jcGYiOiJ0cnVlIn0.cJfNTAH3PoUOKxw_rgXl8rNgofRHUVpiu2WTwPPcCK0'})
