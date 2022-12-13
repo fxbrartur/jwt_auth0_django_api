@@ -39,6 +39,7 @@ def requires_scope(required_scope):
         return decorated
     return require_scope
 
+
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def public(request):
@@ -61,7 +62,7 @@ def private_scoped(request):
 @api_view(['POST'])
 def receive_jwt(request):
     # Get the JWT from the request
-    jwt = request.data.get('jwt')
+    jwt = request.META.get("HTTP_AUTHORIZATION", None)
 
     # Validate the JWT
     if not jwt:
@@ -70,4 +71,4 @@ def receive_jwt(request):
     # TODO: validate the JWT, check if it is valid and not expired, etc.
 
     # Return a new JWT
-    return Response(data={'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2Rldi0zNTJ6YTBsdTB6Zng1ejV3LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJ1QXVabG5MaEtMdW55ZTF4YUdWNnJ4VnozaGVzMVFOWEBjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9hc3Nlc3NtZW50L2FwaSIsImlhdCI6MTY3MDg5ODU3MCwiZXhwIjoxNjcwOTg0OTcwLCJhenAiOiJ1QXVabG5MaEtMdW55ZTF4YUdWNnJ4VnozaGVzMVFOWCIsInNjb3BlIjoicmVhZDptZXNzYWdlcyIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyIsImNwZl9kaXNwb25pdmVsIjoidHJ1ZSIsIm5hbWUiOiJmYWxzZSIsIm5hbWVfc2ltaWxhcml0eSI6IjAuMzgwOTUyMzgwOTUyMzgwOTMiLCJzaXR1YWNhb19jcGYiOiJ0cnVlIn0.cJfNTAH3PoUOKxw_rgXl8rNgofRHUVpiu2WTwPPcCK0'})
+    return Response(data={'response_token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2Rldi0zNTJ6YTBsdTB6Zng1ejV3LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJ1QXVabG5MaEtMdW55ZTF4YUdWNnJ4VnozaGVzMVFOWEBjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9hc3Nlc3NtZW50L2FwaSIsImlhdCI6MTY3MDg5ODU3MCwiZXhwIjoxNjcwOTg0OTcwLCJhenAiOiJ1QXVabG5MaEtMdW55ZTF4YUdWNnJ4VnozaGVzMVFOWCIsInNjb3BlIjoicmVhZDptZXNzYWdlcyIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyIsImNwZl9kaXNwb25pdmVsIjoidHJ1ZSIsIm5hbWUiOiJmYWxzZSIsIm5hbWVfc2ltaWxhcml0eSI6IjAuMzgwOTUyMzgwOTUyMzgwOTMiLCJzaXR1YWNhb19jcGYiOiJ0cnVlIn0.cJfNTAH3PoUOKxw_rgXl8rNgofRHUVpiu2WTwPPcCK0'})
